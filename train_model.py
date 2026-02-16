@@ -216,9 +216,10 @@ def plot_results(y_true, y_pred, importances, features, model_name):
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
     plt.tight_layout()
-    plt.savefig(f"confusion_matrix_{model_name.lower().replace('+', '_')}.png", dpi=150)
+    chart_path = os.path.join(config.CHARTS_DIR, f"confusion_matrix_{model_name.lower().replace('+', '_')}.png")
+    plt.savefig(chart_path, dpi=150)
     plt.close()
-    print(f"Confusion matrix saved.")
+    print(f"Confusion matrix saved to {chart_path}")
 
     if importances is not None:
         top_n = min(15, len(features))
@@ -229,9 +230,11 @@ def plot_results(y_true, y_pred, importances, features, model_name):
         plt.title(f"Top {top_n} Feature Importances — {model_name}")
         plt.xlabel("Importance")
         plt.tight_layout()
-        plt.savefig(f"feature_importance_{model_name.lower().replace('+', '_')}.png", dpi=150)
+        fi_path = os.path.join(config.CHARTS_DIR, f"feature_importance_{model_name.lower().replace('+', '_')}.png")
+        plt.savefig(fi_path, dpi=150)
         plt.close()
-        print(f"Feature importance saved.")
+        print(f"Feature importance saved to {fi_path}")
+
 
 
 # ============================================================

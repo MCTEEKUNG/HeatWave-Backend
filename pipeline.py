@@ -142,6 +142,19 @@ def run_predict(model_type, cache):
     cache.store_prediction(latest_date, probability, risk_level, model_type,
                            is_anomaly=anomaly_result["is_anomaly"])
 
+    # Generate Map
+    try:
+        from visualize_map import render_heatwave_map
+        map_path = render_heatwave_map(
+            risk_level=risk_level,
+            probability=probability,
+            weather_data=df_recent.iloc[-1].to_dict(),
+            date_str=latest_date
+        )
+        print(f"  🗺️  Map saved: {map_path}")
+    except Exception as e:
+        print(f"  ⚠️  Map generation failed: {e}")
+
     return _display_result(latest_date, probability, df_recent.iloc[-1], anomaly_result)
 
 
